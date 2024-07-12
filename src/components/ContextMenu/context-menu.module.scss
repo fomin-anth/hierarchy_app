@@ -1,0 +1,30 @@
+.root {
+  --triangle-size: 20px;
+
+  &__triangle {
+    content: '';
+    position: absolute;
+    left: calc(50% - var(--triangle-size));
+    border-width: 0 var(--triangle-size) var(--triangle-size)
+    var(--triangle-size);
+  }
+
+  &__polygon-menu {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    border: var(--border-width) solid gray;
+
+    &::before {
+      @extend .root__triangle;
+      border-color: transparent transparent gray transparent;
+      top: calc(0px - var(--triangle-size));
+    }
+
+    &::after {
+      @extend .root__triangle;
+      border-color: transparent transparent white transparent;
+      top: calc(0px - var(--triangle-size) + var(--border-width) + 1px);
+    }
+  }
+}

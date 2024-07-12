@@ -1,0 +1,84 @@
+.root {
+  --node-padding: 10px;
+  --line-width: 2px;
+  --line-height: 20px;
+  --line-color: black;
+  --line-style: solid;
+  --line-border-radius: 5px;
+  --icon-size: 35px;
+}
+
+.vertical-line {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: var(--line-height);
+  box-sizing: border-box;
+  z-index: -1;
+}
+
+.children-container {
+  display: flex;
+  padding-inline-start: 0;
+  padding-top: var(--line-height);
+  position: relative;
+
+  &::before {
+    @extend .vertical-line;
+    left: calc(50% - var(--line-width) / 2);
+    width: 0;
+    border-left: var(--line-width) var(--line-style) var(--line-color);
+  }
+}
+
+.node {
+  position: relative;
+  padding: var(--line-height) var(--node-padding) 0 var(--node-padding);
+}
+
+.node-lines::before,
+.node-lines::after {
+  @extend .vertical-line;
+  right: 50%;
+  width: 50%;
+  border-top: var(--line-width) var(--line-style) var(--line-color);
+}
+
+.node-lines::after {
+  left: 50%;
+  border-left: var(--line-width) var(--line-style) var(--line-color);
+}
+
+.node-lines:first-of-type {
+  &::before {
+    border: 0 none;
+  }
+  &::after {
+    border-radius: var(--line-border-radius) 0 0 0;
+  }
+}
+
+.node-lines:only-of-type {
+  padding: 0;
+
+  &::after,
+  &::before {
+    display: none;
+  }
+}
+
+.node-lines:last-of-type {
+  &::before {
+    border-right: var(--line-width) var(--line-style) var(--line-color);
+    border-radius: 0 var(--line-border-radius) 0 0;
+  }
+  &::after {
+    border: 0 none;
+  }
+}
+
+.icon {
+  position: relative;
+  left: calc(50% - var(--icon-size) / 2);
+  top: calc(0px - var(--icon-size)/3);
+}
